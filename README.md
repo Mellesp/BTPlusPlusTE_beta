@@ -53,6 +53,9 @@ CountryFlagsPackage=CountryFlags3
 bEnableCheckpointsInPracticeMode=True
 ```
 
+## Ideas for changes
+- on the scoreboard; let the timer meter be based off player best cap time vs match best cap time
+
 ## Known bugs
 - XConsole overwrites the spectator Fire & Alt Fire functions
 
