@@ -32,7 +32,7 @@ BT++ Tournament Edition beta
 - alt fire key when in free cam lets you spectate the player you aim at
 - throw weapon key sends you to location you aim at
 - grab key sends you 1500 units forward
-- console command "chase <playername>" lets you specate the player
+- console command "chase player1" lets you specate player1
 - increased fly speed from 300 to 500
 - spectators can now use teleporters
 
