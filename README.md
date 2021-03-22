@@ -3,6 +3,8 @@ BT++ Tournament Edition beta
 
 *Customized BT++ specifically designed for cups/pugs/tournament mode*
 
+![Scoreboard](https://cdn.discordapp.com/attachments/710812298847060002/823614285157892126/unknown.png)
+
 ## Features
 ### General
 - removed most of the nonsense
