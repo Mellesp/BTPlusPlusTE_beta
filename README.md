@@ -53,10 +53,12 @@ bCarcasses=True
 bSaveRecords=True
 CountryFlagsPackage=CountryFlags3
 bEnableCheckpointsInPracticeMode=True
+BoardLabel=BunnyTrack Server
 ```
 
 ## Ideas for changes
 - on the scoreboard; let the timer meter be based off player best cap time vs match best cap time
+- BT timer is now orange, maybe use a different color? (back to the original yellow?)
 
 ## Known bugs
 - XConsole overwrites the spectator Fire & Alt Fire functions
