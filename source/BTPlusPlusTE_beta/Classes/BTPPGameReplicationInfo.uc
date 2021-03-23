@@ -19,7 +19,7 @@ var string	MapBestPlayer;
 var string	MapBestTime;
 var string	MapBestAge;
 var string	BestTimeStr;
-var string	ServerName;
+var string	BoardLabel;
 var string	EndStatsText;
 var string	WinnerText;
 var string 	GameBestTime;
@@ -53,7 +53,7 @@ replication
 		MaxPlayers,
 		bTournament,
 		bGameEnded,
-		ServerName,
+		BoardLabel,
 		bGameStarted,
 		EndStatsText,
 		WinnerText;

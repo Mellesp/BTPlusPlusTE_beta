@@ -139,9 +139,7 @@ function DrawTrailer( canvas Canvas )
 			DrawShadowText(Canvas, "~ Match Ended ~", true);
 	}
 	else
-	{
 		DrawShadowText(Canvas, "~ Practice Mode ~", true);
-	}
 
 	//	ENDGAME TEXT
 	if (GRI.bGameEnded && GRI.bTournament)
@@ -427,7 +425,6 @@ function DrawSmartBTScores( Canvas C , int PlayerCount)
 
 	if( Level.TimeSeconds - LastCalcTime > 0.5 )
 	{
-		SortScores( PlayerCount );
 		RecountNumbers();
 		InitStatBoardConstPos( C );
 		CompressStatBoard( C );
@@ -886,13 +883,13 @@ function DrawVictoryConditions(Canvas Canvas)
 
 	startPosY = 58.0/768.0 * Canvas.ClipY;
 
-	//	SERVER NAME
+	//	BOARD LABEL
 	Canvas.bCenter = True;
 	Canvas.DrawColor = WhiteColor;
 	Canvas.Font = MyFonts.GetHugeFont(Canvas.ClipX);
 	Canvas.SetPos(0, startPosY);
 	Canvas.StrLen("Test", X, Y);
-	DrawShadowText(Canvas, GRI.ServerName, true);
+	DrawShadowText(Canvas, GRI.BoardLabel, true);
 
 	//	MAPNAME
 	Canvas.Font = MyFonts.GetMediumFont(Canvas.ClipX);

@@ -43,6 +43,16 @@ var()	color	AltTeamColor[4];
 var BTPPReplicationInfo		RI;
 var BTEPRI					EPRI;
 
+function Timer()
+{
+	Super.Timer();
+
+	if ( (PlayerOwner == None) || (PawnOwner == None) )
+		return;
+	if ( PawnOwner.PlayerReplicationInfo.HasFlag != None )
+		PlayerOwner.ReceiveLocalizedMessage( class'CTFMessage2', 0 );
+}
+
 function SetInfo(PlayerReplicationInfo PRI)
 {
 	local int i;
@@ -279,7 +289,7 @@ simulated function PostRender( canvas Canvas )
 		Canvas.DrawColor = WhiteColor;
 		PawnOwner.Weapon.PostRender(Canvas);
 		if ( !PawnOwner.Weapon.bOwnsCrossHair )
-			DrawCrossHair(Canvas, 0,0 );
+			DrawCrossHair(Canvas, 0,0);
 	}
 
 	if (PawnOwner != None)
@@ -300,7 +310,7 @@ simulated function PostRender( canvas Canvas )
 				Canvas.DrawColor = ChallengeTeamHUD(PlayerOwner.myHUD).TeamColor[PawnOwner.PlayerReplicationInfo.Team];
 				DrawShadowText(Canvas, PawnOwner.PlayerReplicationInfo.PlayerName, True);
 			}
-			else	// check if checkpoints enabled
+			else if (EPRI != None && EPRI.bCPEnabled)	// check if checkpoints enabled
 			{
 				foreach VisibleCollidingActors(class'CheckPoint', CP, 64.0, PlayerOwner.Location)
 				{
@@ -308,7 +318,7 @@ simulated function PostRender( canvas Canvas )
 					{
 						Canvas.Font = MyFonts.GetBigFont(Canvas.ClipX);
 						Canvas.DrawColor = WhiteColor;
-						DrawShadowText(Canvas, PlayerPawn(CP.owner).PlayerReplicationInfo.PlayerName $ "'s Checkpoint");
+						DrawShadowText(Canvas, "Checkpoint of " $ PlayerPawn(CP.owner).PlayerReplicationInfo.PlayerName);
 					}
 				}
 			}
@@ -317,8 +327,7 @@ simulated function PostRender( canvas Canvas )
 			Canvas.DrawColor = WhiteColor;
 			Canvas.Style = Style;
 			Canvas.Font = MyFonts.GetSmallFont( Canvas.ClipX );
-
-			RI = FindInfo(PawnOwner.PlayerReplicationInfo, z);
+	
 			if(RI != None && !PawnOwner.IsInState('GameEnded') && !PawnOwner.PlayerReplicationInfo.bWaitingPlayer && !PawnOwner.PlayerReplicationInfo.bIsSpectator)
 			{
 				if(!RI.bNeedsRespawn)
@@ -482,64 +491,6 @@ simulated function PostRender( canvas Canvas )
 
 simulated function DrawTeam(Canvas Canvas, TeamInfo TI){}
 
-//searches for the BTPP RI by the UT PRI given
-function BTPPReplicationInfo FindInfo(PlayerReplicationInfo PRI, out int ident)
-{
-	local int i;
-	local BTPPReplicationInfo RI;
-	local bool bFound;
-
-	// See if it's already initialized
-	for (i=0;i<Index;i++)
-	{
-		if (PI[i].PRI == PRI)
-		{
-			ident = i;
-			return PI[i].RI;
-		}
-	}
-
-	// Not initialized, find the RI and init a new slot
-	foreach Level.AllActors(class'BTPPReplicationInfo', RI)
-	{
-		if (RI.PlayerID == PRI.PlayerID)
-		{
-			bFound = true;
-			break;
-		}
-    }
-	// Couldn't find RI, this sucks
-	if (!bFound)
-		return None;
-
-	// Init the slot - on newly found BTPP-RI
-	if (Index < 32)//empty elements in array
-	{
-		InitInfo(Index, PRI, RI);
-		ident = Index;
-		Index++;
-		return RI;
-	}
-	else //search dead one
-	{
-		for (i=0;i<32;i++) //chg from ++i in 098
-		{
-			if (PI[i].RI == None)
-				break;//assign here; else return none/-1
-		}
-		InitInfo(i, PRI, RI);
-		ident = i;
-		return RI;
-	}
-	ident = -1;
-	return None;
-}
-
-function InitInfo(int i, PlayerReplicationInfo PRI, BTPPReplicationInfo RI)
-{
-	PI[i].PRI = PRI;
-	PI[i].RI = RI;
-}
 
 simulated function DrawHUDTimes(Canvas Canvas, int Minutes, int Seconds)
 {

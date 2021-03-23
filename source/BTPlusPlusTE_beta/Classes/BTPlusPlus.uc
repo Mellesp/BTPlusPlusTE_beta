@@ -19,6 +19,7 @@ var config bool 	bCarcasses;
 var config bool 	bSaveRecords;
 var config string	CountryFlagsPackage;
 var config bool		bEnableCheckpointsInPracticeMode;
+var config string	BoardLabel;
 
 var int		CurrentID;
 var bool	TimerBugTriggered;
@@ -29,6 +30,7 @@ var int		lastTimestamp;				//save the latest timestamp generated
 var int		BestTeam;
 var int		SuddenDeathTimer;
 var string	BTStatsTimer;
+var bool	bCPEnabled;
 
 var string	LevelName;					// current level name
 var Actor	focusOn;
@@ -183,7 +185,10 @@ function PreBeginPlay()
 		}
 
 		if(!DeathMatchPlus(Level.Game).bTournament && bEnableCheckpointsInPracticeMode)
+		{
 			BTCheckPoints = spawn(class'BTCheckPoints');
+			bCPEnabled = true;
+		}
 	}
 	Super.PreBeginPlay();
 }
@@ -256,7 +261,7 @@ function SetSettings()
 	GRI.MaxPlayers		= DeathMatchPlus(Level.Game).MaxPlayers;
 	GRI.CapLimit		= CTFGame(Level.Game).GoalTeamScore;
 	GRI.TimeLimit		= CTFGame(Level.Game).TimeLimit;
-	GRI.ServerName		= Level.Game.GameReplicationInfo.ServerName;
+	GRI.BoardLabel		= BoardLabel;
 }
 //#########################################################################
 //### PLAYER AND RECORD MANAGMENT FUNCTIONS
@@ -301,6 +306,7 @@ function InitNewPlayer(PlayerPawn PP)
 	PI[i].EPRI = Spawn(class'BTEPRI', PP);
 	PI[i].EPRI.PlayerID = PP.PlayerReplicationInfo.PlayerID;
 	PI[i].EPRI.PP = PP;
+	PI[i].EPRI.bCPEnabled = bCPEnabled;
 
 	PI[i].PlayerID = PP.PlayerReplicationInfo.PlayerID;
 
@@ -1781,4 +1787,5 @@ defaultproperties
 	bSaveRecords=True
 	CountryFlagsPackage="CountryFlags3"
 	bEnableCheckpointsInPracticeMode=True
+	BoardLabel="BunnyTrack PUG/CUP Server"
 }

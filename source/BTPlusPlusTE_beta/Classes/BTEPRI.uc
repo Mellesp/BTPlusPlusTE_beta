@@ -7,7 +7,7 @@ var PlayerPawn PP;
 var int PlayerID;
 
 var int	ArmorAmount, ChestAmount, ThighAmount, BootCharges;
-var bool bShieldbelt, bChestArmor, bThighArmor, bJumpBoots;
+var bool bShieldbelt, bChestArmor, bThighArmor, bJumpBoots, bCPEnabled;
 
 //=============================================================================
 // replicating armor + boots from server to clients
@@ -15,7 +15,7 @@ var bool bShieldbelt, bChestArmor, bThighArmor, bJumpBoots;
 replication
 {
 	reliable if (Role == ROLE_Authority)
-		PP, PlayerID, ArmorAmount, ChestAmount, ThighAmount, bShieldbelt, bChestArmor, bThighArmor, bJumpBoots, BootCharges;
+		PP, PlayerID, ArmorAmount, ChestAmount, ThighAmount, bShieldbelt, bChestArmor, bThighArmor, bJumpBoots, BootCharges, bCPEnabled;
 }
 event Spawned()
 {
