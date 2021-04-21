@@ -61,6 +61,6 @@ BoardLabel=BunnyTrack Server
 - BT timer is now orange, maybe use a different color? (back to the original yellow?)
 
 ## Known bugs
-- XConsole overwrites the spectator Fire & Alt Fire functions
+- XConsole 3.5.0 overwrites the spectator Fire & Alt Fire functions
 
 Let me know if you find any bugs, Discord: Melle#7511
